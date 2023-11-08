@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "../../utilies/axios";
-import { useLoginMutation } from "../../services/authApi";
+import { useAddNewPasswordMutation } from "../../services/authApi";
 import toast from "react-hot-toast";
 import GuestLayout from "../../components/Layout/GuestLayout";
 
@@ -57,15 +57,23 @@ const Button = styled.button`
     margin-top: 20px;
 `;
 
-const Login = () => {
+const ResetPassword = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [login, {isLoading, isError, error, isSuccess}] = useLoginMutation();
+    const [confirm_password, setConfirmPassword] = useState("");
+    const [searchParams] = useSearchParams();
+    const {token} = useParams();
 
-    const handleLoginSubmit = async (event) => {
+    useEffect(() => {
+        setEmail(searchParams.get('email'));
+    }, []);
+    console.log(token, email, password, confirm_password);
+    const [addNewPassword, {isLoading, isError, error, isSuccess}] = useAddNewPasswordMutation();
+
+    const handleAddNewPasswordSubmit = async (event) => {
         event.preventDefault();
         await axios.get('/sanctum/csrf-token');
-        await login({email, password});
+        await addNewPassword({token, email, password, confirm_password});
     }
     isError && toast.error(error);
         
@@ -74,19 +82,21 @@ const Login = () => {
         <GuestLayout />
         <Container>
             <Wrapper>
-                <Title>Sign In</Title>
-                <Form onSubmit={handleLoginSubmit}>
+                <Title>Add your new password</Title>
+                <Form onSubmit={handleAddNewPasswordSubmit}>
                     <InputContainer>
                         <Label>Email</Label>
-                        <Input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                        <Input type="email" value={email} placeholder="Email" readOnly />
                     </InputContainer>
                     <InputContainer>
                         <Label>Password</Label>
                         <Input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                     </InputContainer>
-                    <Button type="submit">{isLoading ? 'Loading...': 'Log In'}</Button>
-                    <Link to="/forgot-password" style={{marginTop: '15px'}}>Forgot your password</Link>
-                    <p style={{marginTop: '15px'}}>New member? <Link to="/register" > Create an account</Link></p>
+                    <InputContainer>
+                        <Label>Confirm Password</Label>
+                        <Input type="password" onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password" />
+                    </InputContainer>
+                    <Button type="submit">{isLoading ? 'Loading...': 'Change Password'}</Button>
                 </Form>
             </Wrapper>
         </Container>
@@ -94,4 +104,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default ResetPassword;

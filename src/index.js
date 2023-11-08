@@ -9,6 +9,8 @@ import Register from './pages/Register/Register';
 import { Provider } from 'react-redux';
 import { store } from './services/store';
 import { Toaster } from 'react-hot-toast';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/password-reset/:token',
+    element: <ResetPassword />,
   }
 ]);
 
