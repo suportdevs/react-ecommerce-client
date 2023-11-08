@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
+import { Link, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { useRegisterMutation } from "../../services/authApi";
+import axios from "../../utilies/axios";
+import toast from "react-hot-toast";
+import GuestLayout from "../../components/Layout/GuestLayout";
 
 const Container = styled.div`
     width: 100vw;
@@ -59,43 +65,62 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+    const [register, {isLoading, isError, isSuccess, error}] = useRegisterMutation();
+    const [firstname, setFirstName] = useState("");
+    const [lastname, setLastName] = useState("");
+    const [username, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirm_password, setConfirmPassword] = useState("");
+
+    const handleRegisterSubmit = async (event) => {
+        event.preventDefault();
+        await axios.get('/sanctum/csft-token');
+        await register({firstname, lastname, username, email, password, confirm_password});
+    }
+    isError && toast.error(error);
+    isSuccess && (<Navigate to="/login" />);
+
     return (
+        <>
+        <GuestLayout />
         <Container>
             <Wrapper>
                 <Title>Create an Account</Title>
-                <Form>
+                <Form onSubmit={handleRegisterSubmit}>
                     <InputContainer>
                         <Label>First Name</Label>
-                        <Input type="text" placeholder="First Name" />
+                        <Input type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="First Name" />
                     </InputContainer>
                     <InputContainer>
                         <Label>Last Name</Label>
-                        <Input type="text" placeholder="Last Name" />
+                        <Input type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" />
                     </InputContainer>
                     <InputContainer>
                         <Label>Username</Label>
-                        <Input type="text" placeholder="Username" />
+                        <Input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
                     </InputContainer>
                     <InputContainer>
                         <Label>Email</Label>
-                        <Input type="text" placeholder="Email" />
+                        <Input type="text" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                     </InputContainer>
                     <InputContainer>
                         <Label>Password</Label>
-                        <Input type="password" placeholder="Password" />
+                        <Input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                     </InputContainer>
                     <InputContainer>
                         <Label>Confirm Password</Label>
-                        <Input type="password" placeholder="Confirm Password" />
+                        <Input type="password" onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password" />
                     </InputContainer>
                     <Agreement>
                         By creating an account, I consent to the processing of my personal
-                data in accordance with the <b>PRIVACY POLICY</b>
+                data in accordance with the <b>PRIVACY POLICY</b> <Link to="/login">Sign in</Link>
                     </Agreement>
-                    <Button>Create</Button>
+                    <Button type="submit">{isLoading ? 'Loading...' : 'Create'}</Button>
                 </Form>
             </Wrapper>
         </Container>
+        </>
     )
 }
 

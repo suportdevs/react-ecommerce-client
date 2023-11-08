@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "../../utilies/axios";
+import { useLoginMutation } from "../../services/authApi";
+import toast from "react-hot-toast";
+import GuestLayout from "../../components/Layout/GuestLayout";
 
 const Container = styled.div`
     width: 100vw;
@@ -50,34 +56,41 @@ const Button = styled.button`
     cursor: pointer;
     margin-top: 20px;
 `;
-const Link = styled.a`
-    margin-top: 10px;
-`;
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [login, {isLoading, isError, error, isSuccess}] = useLoginMutation();
+
+    const handleLoginSubmit = async (event) => {
+        event.preventDefault();
+        await axios.get('/sanctum/csrf-token');
+        await login({email, password});
+    }
+    isError && toast.error(error);
+        
     return (
+        <>
+        <GuestLayout />
         <Container>
             <Wrapper>
                 <Title>Sign In</Title>
-                <Form>
+                <Form onSubmit={handleLoginSubmit}>
                     <InputContainer>
-                        <Label>Username</Label>
-                        <Input type="text" placeholder="Username" />
-                    </InputContainer>
-                    {/* <InputContainer>
                         <Label>Email</Label>
-                        <Input type="text" placeholder="Email" />
-                    </InputContainer> */}
+                        <Input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                    </InputContainer>
                     <InputContainer>
                         <Label>Password</Label>
-                        <Input type="password" placeholder="Password" />
+                        <Input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                     </InputContainer>
-                    <Button>Log In</Button>
-                    <Link>Forgot your password</Link>
-                    <Link>New member? Create an account</Link>
+                    <Button type="submit">{isLoading ? 'Loading...': 'Log In'}</Button>
+                    <Link style={{marginTop: '15px'}}>Forgot your password</Link>
+                    <p style={{marginTop: '15px'}}>New member? <Link to="/register" > Create an account</Link></p>
                 </Form>
             </Wrapper>
         </Container>
+        </>
     )
 }
 
