@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {popularProducts} from "../data";
 import ProductItem from "./ProductItem";
+import { useEffect, useState } from "react";
+import { useGetProductsQuery} from '../services/productApi';
 
 const Container = styled.div`
     padding: 20px;
@@ -21,7 +23,16 @@ const Description = styled.p`
 `;
 
 
-const Products = () => {
+const Products = ({category, filters, sort}) => {
+    const [products, setProducts] = useState([]);
+
+    const {data, error, isLoading} = useGetProductsQuery();
+    // useEffect(() => {
+    //     const getProducts = async () => {
+    //     }
+    // })
+    console.log(data);
+
     return (
         <Container>
         <Title>Hot Deal</Title>

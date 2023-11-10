@@ -57,7 +57,7 @@ const Title = styled.h1`
 const CategoryItem = ({item}) => {
     return (
         <Container>
-            <Link to={`products/${item.category}`}>
+            <Link to={`products/${item.name}`}>
                 <Image src={item.img} />
                 <Info>
                     <Title>{item.title}</Title>
