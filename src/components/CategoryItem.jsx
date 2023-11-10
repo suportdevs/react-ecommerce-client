@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 const Button = styled.button`
     position: absolute;
@@ -56,11 +57,13 @@ const Title = styled.h1`
 const CategoryItem = ({item}) => {
     return (
         <Container>
-            <Image src={item.img} />
+            <Link to={`products/${item.category}`}>
+                <Image src={item.img} />
                 <Info>
                     <Title>{item.title}</Title>
                     <Button>Shop Now</Button>
                 </Info>
+            </Link>
         </Container>
     )
 }
