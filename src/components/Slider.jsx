@@ -35,7 +35,7 @@ const SliderWrapper = styled.div`
     display: flex;
     transition: all 1.5s ease;
     -webkit-transition: all 1.5s ease;
-    transform: translateX(${(props) => props.sliderIndex * -100}vw);
+    transform: translateX(${(props) => props.sliderindex * -100}vw);
 `;
 const SliderItem = styled.div`
     width: 100vw;
@@ -75,18 +75,18 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
-    const [sliderIndex, setSliderIndex] = useState(0);
+    const [sliderindex, setSliderindex] = useState(0);
     const handleSliderDirection = (direction) => {
         if(direction === 'left'){
-            setSliderIndex(sliderIndex > 0 ? sliderIndex - 1 : 2);
+            setSliderindex(sliderindex > 0 ? sliderindex - 1 : 2);
         }else{
-            setSliderIndex(sliderIndex < 2 ? sliderIndex + 1 : 0)
+            setSliderindex(sliderindex < 2 ? sliderindex + 1 : 0)
         }
     }
     return (
         <Container>
             <Arraw direction="left" onClick={() =>handleSliderDirection('left')}><ArrowBackIosNewOutlined /></Arraw>
-            <SliderWrapper sliderIndex={sliderIndex}>
+            <SliderWrapper sliderindex={sliderindex}>
                 {sliderItems && sliderItems.map((slider, index) =>(
                 <SliderItem key={index} bg={slider.bg}>
                     <ImgContainer>
