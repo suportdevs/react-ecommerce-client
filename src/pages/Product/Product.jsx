@@ -5,6 +5,8 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import styled from "styled-components";
 import { mobile } from "../../responsive";
+import { useLocation } from "react-router-dom";
+import { useFindProductQuery } from "../../services/productApi";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -95,6 +97,11 @@ const AddtoCartButton = styled.button`
 `;
 
 const Product = () => {
+    const location = useLocation();
+    const id = location.pathname.split("/")[2];
+    const {data, isLoading, isSuccess} = useFindProductQuery(id);
+    console.log(data);
+
     return(
         <>
         <Navbar />
@@ -102,28 +109,20 @@ const Product = () => {
         <Container>
             <Wrapper>
                 <ImageContainer>
-                    <Image src="https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png"/>
+                    <Image src={data?.image}/>
                 </ImageContainer>
                 <InfoContainer>
-                    <Title>Lorem, ipsum dolor.</Title>
-                    <Description>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, illo hic, voluptates molestiae alias veniam id quos praesentium, nostrum harum non qui saepe! Eveniet numquam deleniti accusantium adipisci ducimus maxime ipsa illo sed voluptate culpa hic neque eos fugiat quam, repellat amet modi id. Culpa nihil asperiores itaque suscipit ipsam.</Description>
-                    <Price>$50</Price>
+                    <Title>{data?.title}</Title>
+                    <Description>{data?.description}</Description>
+                    <Price>${data?.rate}</Price>
                     <FilterContainer>
                         <Filter>
-                            <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="green"></FilterColor>
-                            <FilterColor color="black"></FilterColor>
-                            <FilterColor color="yellow"></FilterColor>
-                            <FilterColor color="red"></FilterColor>
+                            {data?.color.map((c) => (<FilterColor color={c} key={c}></FilterColor>))}
                         </Filter>
                         <Filter>
                             <FilterTitle>Size</FilterTitle>
                             <Select>
-                                <Option>XS</Option>
-                                <Option>S</Option>
-                                <Option>M</Option>
-                                <Option>L</Option>
-                                <Option>XL</Option>
+                                {data?.size.map((s) => (<Option>{s}</Option>))}
                             </Select>
                         </Filter>
                     </FilterContainer>

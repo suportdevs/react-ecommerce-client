@@ -37,21 +37,20 @@ const Products = ({category, filters, sort}) => {
     }, [products, category, filters]);
 
     useEffect(() => {
-        if(sort === 'newest'){
-            setFilteredProducts((prev) => [
-                ...prev.sort((a,b) => a.createdAt - b.createdAt)
-            ]);
-        }else if(sort === 'asc'){
-            setFilteredProducts((prev) => [
-                ...prev.sort((a,b) => a.price - b.price)
-            ]);
-        }else{
-            setFilteredProducts((prev) => [
-                ...prev.sort((a,b) => b.price - a.price)
-            ]);
+        if (sort === "newest") {
+          setFilteredProducts((prev) =>
+            [...prev].sort((a, b) => a.createdAt - b.createdAt)
+          );
+        } else if (sort === "asc") {
+          setFilteredProducts((prev) =>
+            [...prev].sort((a, b) => a.rate - b.rate)
+          );
+        } else {
+          setFilteredProducts((prev) =>
+            [...prev].sort((a, b) => b.rate - a.rate)
+          );
         }
-    }, [sort]);
-
+      }, [sort]);
 
     return (
         <Container>
@@ -59,7 +58,7 @@ const Products = ({category, filters, sort}) => {
         <Description>Find your best feelings in our deal</Description>
             <ProductContainer>
             {
-                filteredProducts ? filteredProducts?.map((item, index) => <ProductItem item={item} key={index}/>) : (!isSuccess && isLoading ? (<div>Loading..</div>) : products?.map((item, index) => <ProductItem item={item} key={index}/>))
+                filteredProducts ? filteredProducts.map((item, index) => <ProductItem item={item} key={index}/>) : (!isSuccess && isLoading ? (<div>Loading..</div>) : products?.map((item, index) => <ProductItem item={item} key={index}/>))
             }
             </ProductContainer>
         </Container>
