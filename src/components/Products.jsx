@@ -22,7 +22,6 @@ const Description = styled.p`
     margin-bottom: 20px;
 `;
 
-
 const Products = ({category, filters, sort}) => {
     const {data, isLoading, isSuccess} = useGetProductsQuery(category);
     const [products, setProducts] = useState([]);
@@ -51,14 +50,14 @@ const Products = ({category, filters, sort}) => {
           );
         }
       }, [sort]);
-
+console.log(filteredProducts);
     return (
         <Container>
         <Title>Hot Deal</Title>
         <Description>Find your best feelings in our deal</Description>
             <ProductContainer>
             {
-                filteredProducts ? filteredProducts.map((item, index) => <ProductItem item={item} key={index}/>) : (!isSuccess && isLoading ? (<div>Loading..</div>) : products?.map((item, index) => <ProductItem item={item} key={index}/>))
+                category && filteredProducts ? filteredProducts.map((item, index) => <ProductItem item={item} key={index}/>) : (!isSuccess && isLoading ? (<div>Loading..</div>) : products?.map((item, index) => <ProductItem item={item} key={index}/>))
             }
             </ProductContainer>
         </Container>

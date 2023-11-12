@@ -112,17 +112,17 @@ const Product = () => {
                     <Image src={data?.image}/>
                 </ImageContainer>
                 <InfoContainer>
-                    <Title>{data?.title}</Title>
+                    <Title>{data?.name}</Title>
                     <Description>{data?.description}</Description>
                     <Price>${data?.rate}</Price>
                     <FilterContainer>
                         <Filter>
-                            {data?.color.map((c) => (<FilterColor color={c} key={c}></FilterColor>))}
+                            {data.color?.map((c) => (<FilterColor color={c} key={c}></FilterColor>))}
                         </Filter>
                         <Filter>
                             <FilterTitle>Size</FilterTitle>
                             <Select>
-                                {data?.size.map((s) => (<Option>{s}</Option>))}
+                                {data.size?.map((s) => (<Option>{s}</Option>))}
                             </Select>
                         </Filter>
                     </FilterContainer>
