@@ -9,7 +9,7 @@ export const productApi = createApi({
         }),
         findProduct: builder.query({
             query: (id) => `/products/find/${id}`,
-        })
+        }),
     }),
 });
 

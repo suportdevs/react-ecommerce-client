@@ -7,6 +7,9 @@ import styled from "styled-components";
 import { mobile } from "../../responsive";
 import { useLocation } from "react-router-dom";
 import { useFindProductQuery } from "../../services/productApi";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../services/cartSlice";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -97,10 +100,25 @@ const AddtoCartButton = styled.button`
 `;
 
 const Product = () => {
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState("");
+    const [size, setSize] = useState("");
+    const dispatch = useDispatch();
     const location = useLocation();
     const id = location.pathname.split("/")[2];
     const {data, isLoading, isSuccess} = useFindProductQuery(id);
-    console.log(data);
+
+    const handleQuantity = (type) => {
+        if(type === 'decrease'){
+            quantity > 1 && setQuantity(quantity - 1);
+        }else{
+            setQuantity(quantity + 1);
+        }
+    }
+    
+    const handleAddToCart = () => {
+        dispatch(addToCart({...data, color, size, quantity}));
+    }
 
     return(
         <>
@@ -108,33 +126,37 @@ const Product = () => {
         <Announcement />
         <Container>
             <Wrapper>
-                <ImageContainer>
-                    <Image src={data?.image}/>
-                </ImageContainer>
-                <InfoContainer>
-                    <Title>{data?.name}</Title>
-                    <Description>{data?.description}</Description>
-                    <Price>${data?.rate}</Price>
-                    <FilterContainer>
-                        <Filter>
-                            {data.color?.map((c) => (<FilterColor color={c} key={c}></FilterColor>))}
-                        </Filter>
-                        <Filter>
-                            <FilterTitle>Size</FilterTitle>
-                            <Select>
-                                {data.size?.map((s) => (<Option>{s}</Option>))}
-                            </Select>
-                        </Filter>
-                    </FilterContainer>
-                    <AddContainer>
-                        <AmountContainer>
-                            <Remove />
-                            <Amount>1</Amount>
-                            <Add />
-                        </AmountContainer>
-                        <AddtoCartButton>Add to Cart</AddtoCartButton>
-                    </AddContainer>
-                </InfoContainer>
+                {(!isSuccess && isLoading) ? <h1 style={{textAlign: 'center'}}>Loading...</h1> : (
+                    <>
+                        <ImageContainer>
+                            <Image src={data?.image}/>
+                        </ImageContainer>
+                        <InfoContainer>
+                            <Title>{data?.name}</Title>
+                            <Description>{data?.description}</Description>
+                            <Price>${data?.rate}</Price>
+                            <FilterContainer>
+                                <Filter>
+                                    {isSuccess && data.color?.map((c) => (<FilterColor color={c} key={c} onClick={() => setColor(c)}></FilterColor>))}
+                                </Filter>
+                                <Filter>
+                                    <FilterTitle>Size</FilterTitle>
+                                    <Select onChange={(e) => setSize(e.target.value)}>
+                                        {isSuccess && data.size?.map((s) => (<Option key={s}>{s}</Option>))}
+                                    </Select>
+                                </Filter>
+                            </FilterContainer>
+                            <AddContainer>
+                                <AmountContainer>
+                                    <Remove onClick={() => handleQuantity('decrease')}/>
+                                    <Amount>{quantity}</Amount>
+                                    <Add onClick={() => handleQuantity('increase')}/>
+                                </AmountContainer>
+                                <AddtoCartButton onClick={handleAddToCart}>Add to Cart</AddtoCartButton>
+                            </AddContainer>
+                        </InfoContainer>
+                    </>
+                )}
             </Wrapper>
         </Container>
         <Newsletter />
