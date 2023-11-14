@@ -3,6 +3,7 @@ import { Badge } from "@mui/material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     height: 60px;
@@ -41,7 +42,11 @@ const Navbar = () => {
     return (
         <Container>
             <Wrapper>
-                <Left><Logo>Shop</Logo></Left>
+                <Left>
+                    <Link to="/">
+                        <Logo>Shop</Logo>
+                    </Link>
+                </Left>
                 {/* <Center>Center</Center> */}
                 <Right>
                     <MenuItem>
@@ -57,9 +62,11 @@ const Navbar = () => {
                         <Language />
                     </MenuItem>
                     <MenuItem>
-                        <Badge color="secondary" badgeContent={quantity}>
-                            <ShoppingCartOutlined />
-                        </Badge>
+                        <Link to="/cart">
+                            <Badge color="secondary" badgeContent={quantity}>
+                                <ShoppingCartOutlined />
+                            </Badge>
+                        </Link>
                     </MenuItem>
                 </Right>
             </Wrapper>

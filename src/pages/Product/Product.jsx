@@ -10,6 +10,7 @@ import { useFindProductQuery } from "../../services/productApi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../services/cartSlice";
+import toast from "react-hot-toast";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -117,6 +118,14 @@ const Product = () => {
     }
     
     const handleAddToCart = () => {
+        if(color === ""){
+            toast.error("Please select any color!");
+            return false;
+        }
+        if(size === ''){
+            toast.error("Please select any size!");
+            return false;
+        }
         dispatch(addToCart({...data, color, size, quantity}));
     }
 

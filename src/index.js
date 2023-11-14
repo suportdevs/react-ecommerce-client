@@ -8,8 +8,10 @@ import ProductList from './pages/ProductList/ProductList';
 import Product from './pages/Product/Product';
 import Login from "./pages/Login/Login";
 import Register from './pages/Register/Register';
+import Cart from './pages/Cart/Cart';
 import { Provider } from 'react-redux';
 import { store } from './services/store';
+import { Toaster } from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
     element: <Product />,
   },
   {
+    path: '/cart',
+    element: <Cart />,
+  },
+  {
     path: '/login',
     element: <Login />,
   },
@@ -39,6 +45,7 @@ const router = createBrowserRouter([
 root.render(
   <Provider store={store}>
     <RouterProvider router={router} />
+    <Toaster />
   </Provider>
 );
 

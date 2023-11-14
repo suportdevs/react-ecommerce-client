@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import { mobile, tablet } from "../../responsive";
 import Footer from "../../components/Footer";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     padding: 20px;
@@ -118,6 +120,8 @@ const Button = styled.button`
   font-weight: 600;
 `;
 const Cart =() => {
+    const cart = useSelector(state => state.cart);
+    console.log(cart);
     return (
         <>
         <Navbar />
@@ -126,60 +130,38 @@ const Cart =() => {
                 <Title>Your Bag</Title>
             <Wrapper>
                 <ProductContainer>
-                    <ProductWrapper>
+                    {cart.products ? <Link to="/"><h1>Your cart is empty. Continue Shopping.</h1></Link> : cart.products.map(product => (
+                        <ProductWrapper>
                         <ProductDetails>
                             <ProductImg>
-                                <Image src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHN8ZW58MHx8MHx8fDA%3D" />
+                                <Image src={product.image} />
                             </ProductImg>
                             <ProductInfo>
-                                <ProductName><b>Product Name: </b>Grogius Dress</ProductName>
-                                <ProductId><b>Id: </b>125478653</ProductId>
-                                <ProductColor color='c80019' />
-                                <ProductSize><b>Size:</b> 39.4</ProductSize>
+                                <ProductName><b>Product Name: </b>{product.name}</ProductName>
+                                <ProductId><b>Id: </b>{product._id}</ProductId>
+                                <ProductColor color={product.color} />
+                                <ProductSize><b>Size:</b> {product.size}</ProductSize>
                             </ProductInfo>
                         </ProductDetails>
                         <ProductPriceSection>
                             <PriceButtons>
                                 <Add />
-                                <ProductQuantity>5</ProductQuantity>
+                                <ProductQuantity>{product.quantity}</ProductQuantity>
                                 <Remove />
                             </PriceButtons>
-                            <Price>$30</Price>
+                            <Price>${product.quantity * product.rate}</Price>
                         </ProductPriceSection>
                         <ProductRemove>
                             <Delete />
                         </ProductRemove>
                     </ProductWrapper>
-                    <ProductWrapper>
-                        <ProductDetails>
-                            <ProductImg>
-                                <Image src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHN8ZW58MHx8MHx8fDA%3D" />
-                            </ProductImg>
-                            <ProductInfo>
-                                <ProductName><b>Product Name: </b>Grogius Dress</ProductName>
-                                <ProductId><b>Id: </b>125478653</ProductId>
-                                <ProductColor color='c80019' />
-                                <ProductSize><b>Size:</b> 39.4</ProductSize>
-                            </ProductInfo>
-                        </ProductDetails>
-                        <ProductPriceSection>
-                            <PriceButtons>
-                                <Add />
-                                <ProductQuantity>5</ProductQuantity>
-                                <Remove />
-                            </PriceButtons>
-                            <Price>$30</Price>
-                        </ProductPriceSection>
-                        <ProductRemove>
-                            <Delete />
-                        </ProductRemove>
-                    </ProductWrapper>
+                    ))}
                 </ProductContainer>
                 <SummaryWrapper>
                     <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                     <SummaryItem>
                     <SummaryItemText>Subtotal</SummaryItemText>
-                    <SummaryItemPrice>$ 80</SummaryItemPrice>
+                    <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                     </SummaryItem>
                     <SummaryItem>
                     <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -191,7 +173,7 @@ const Cart =() => {
                     </SummaryItem>
                     <SummaryItem type="total">
                     <SummaryItemText>Total</SummaryItemText>
-                    <SummaryItemPrice>$ 80</SummaryItemPrice>
+                    <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                     </SummaryItem>
                     <Button>CHECKOUT NOW</Button>
                 </SummaryWrapper>
