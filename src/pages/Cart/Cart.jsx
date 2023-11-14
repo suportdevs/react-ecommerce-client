@@ -6,6 +6,9 @@ import { mobile, tablet } from "../../responsive";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { useEffect, useState } from "react";
+import { useCheckoutPaymentMutation } from "../../services/cartApi";
 
 const Container = styled.div`
     padding: 20px;
@@ -121,7 +124,24 @@ const Button = styled.button`
 `;
 const Cart =() => {
     const cart = useSelector(state => state.cart);
-    console.log(cart);
+    const [stripeToken, setStripeToken] = useState(null);
+    const[checkoutPayment, {data, isLoading, error}] = useCheckoutPaymentMutation().unwrap();
+    const onToken = (token) => {
+        setStripeToken(token);
+    }
+    useEffect(() => {
+        const makeRequest = async () => {
+            try{
+                await checkoutPayment({tokenId:stripeToken, amount: cart.total});
+            }catch(err){
+                console.log(err);
+            }
+        }
+        makeRequest();
+    }, [stripeToken, cart]);
+    console.log(data);
+    console.log(isLoading);
+    console.log(error);
     return (
         <>
         <Navbar />
@@ -175,7 +195,17 @@ const Cart =() => {
                     <SummaryItemText>Total</SummaryItemText>
                     <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                     </SummaryItem>
-                    <Button>CHECKOUT NOW</Button>
+                    <StripeCheckout 
+                        name="Suport Devs"
+                        description="Your total amount is 500"
+                        image="https://avatars.githubusercontent.com/u/84679247?v=4"
+                        amount={5000}
+                        currency="USD"
+                        stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                        shippingAddress
+                        billingAddress
+                        token={onToken}
+                    >Checkout Now</StripeCheckout>
                 </SummaryWrapper>
             </Wrapper>
         </Container>
