@@ -10,7 +10,7 @@ export const store = configureStore({
         [cartApi.reducerPath]: cartApi.reducer,
         cart: cartSlice,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productApi.middleware).concat(cartApi.middleware),
 });
 
 setupListeners(store.dispatch);

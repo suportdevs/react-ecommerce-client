@@ -127,6 +127,7 @@ const Product = () => {
             return false;
         }
         dispatch(addToCart({...data, color, size, quantity}));
+        toast.success(`successfully ${data.name} product added in your cart.`);
     }
 
     return(

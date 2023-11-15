@@ -9,6 +9,7 @@ import Product from './pages/Product/Product';
 import Login from "./pages/Login/Login";
 import Register from './pages/Register/Register';
 import Cart from './pages/Cart/Cart';
+import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess";
 import { Provider } from 'react-redux';
 import { store } from './services/store';
 import { Toaster } from 'react-hot-toast';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: '/cart',
     element: <Cart />,
+  },
+  {
+    path: '/payment-success',
+    element: <PaymentSuccess />,
   },
   {
     path: '/login',

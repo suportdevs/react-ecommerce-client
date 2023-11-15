@@ -5,7 +5,7 @@ import Announcement from "../../components/Announcement";
 import { mobile, tablet } from "../../responsive";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { useCheckoutPaymentMutation } from "../../services/cartApi";
@@ -124,24 +124,24 @@ const Button = styled.button`
 `;
 const Cart =() => {
     const cart = useSelector(state => state.cart);
+    const navigate = useNavigate();
     const [stripeToken, setStripeToken] = useState(null);
-    const[checkoutPayment, {data, isLoading, error}] = useCheckoutPaymentMutation().unwrap();
+    const[checkoutPayment, {data, isLoading, error, isSuccess}] = useCheckoutPaymentMutation();
     const onToken = (token) => {
         setStripeToken(token);
     }
     useEffect(() => {
         const makeRequest = async () => {
             try{
-                await checkoutPayment({tokenId:stripeToken, amount: cart.total});
+                await checkoutPayment({tokenId:stripeToken.id, amount: 50000}).unwrap();
             }catch(err){
                 console.log(err);
             }
         }
-        makeRequest();
+        stripeToken && makeRequest();
     }, [stripeToken, cart]);
-    console.log(data);
-    console.log(isLoading);
-    console.log(error);
+    isSuccess && navigate('/payment-success', {state:{stripeData: data, cart: cart}})
+    console.log(`data ${data}, loading ${isLoading},error ${error}, success ${isSuccess}`)
     return (
         <>
         <Navbar />
