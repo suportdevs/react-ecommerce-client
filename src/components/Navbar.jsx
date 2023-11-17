@@ -49,25 +49,29 @@ const Navbar = () => {
                 </Left>
                 {/* <Center>Center</Center> */}
                 <Right>
-                    <MenuItem>
-                        Register
-                    </MenuItem>
-                    <MenuItem>
-                        Login
-                    </MenuItem>
+                    <Link to="/register">
+                        <MenuItem>
+                            Register
+                        </MenuItem>
+                    </Link>
+                    <Link to="login">
+                        <MenuItem>
+                            Login
+                        </MenuItem>
+                    </Link>
                     <MenuItem>
                         <SearchOutlined />
                     </MenuItem>
                     <MenuItem>
                         <Language />
                     </MenuItem>
-                    <MenuItem>
                         <Link to="/cart">
-                            <Badge color="secondary" badgeContent={quantity}>
-                                <ShoppingCartOutlined />
-                            </Badge>
+                            <MenuItem>
+                                    <Badge color="secondary" badgeContent={quantity}>
+                                        <ShoppingCartOutlined />
+                                    </Badge>
+                            </MenuItem>
                         </Link>
-                    </MenuItem>
                 </Right>
             </Wrapper>
         </Container>

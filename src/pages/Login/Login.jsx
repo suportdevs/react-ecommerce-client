@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
+import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import {useLoginMutation} from "../../services/authApi";
 
 const Container = styled.div`
     width: 100vw;
@@ -50,19 +53,32 @@ const Button = styled.button`
     cursor: pointer;
     margin-top: 20px;
 `;
-const Link = styled.a`
+const Text = styled.p`
     margin-top: 10px;
 `;
 
 const Login = () => {
+    const [login, {isLoading, isError, error, isSuccess}] = useLoginMutation();
+    const location = useLocation();
+    const _email = location.state.email ?? null;
+    const [email, setEmail] = useState(_email);
+    const [password,setPassword] = useState("");
+    
+    const handleLogin = async () => {
+        try{
+            await Login({email, password}).unwrap();
+        }catch(err){
+            console.log(err);
+        }
+    }
     return (
         <Container>
             <Wrapper>
                 <Title>Sign In</Title>
-                <Form>
+                <Form onSubmit={handleLogin}>
                     <InputContainer>
-                        <Label>Username</Label>
-                        <Input type="text" placeholder="Username" />
+                        <Label>Email</Label>
+                        <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Username" />
                     </InputContainer>
                     {/* <InputContainer>
                         <Label>Email</Label>
@@ -70,11 +86,11 @@ const Login = () => {
                     </InputContainer> */}
                     <InputContainer>
                         <Label>Password</Label>
-                        <Input type="password" placeholder="Password" />
+                        <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
                     </InputContainer>
                     <Button>Log In</Button>
-                    <Link>Forgot your password</Link>
-                    <Link>New member? Create an account</Link>
+                    <Text><Link to="/forgot-password">Forgot your password</Link></Text>
+                    <Text>New member? <Link to="/register">Create an account</Link></Text>
                 </Form>
             </Wrapper>
         </Container>
