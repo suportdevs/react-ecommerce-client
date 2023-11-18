@@ -3,6 +3,7 @@ import { mobile } from "../../responsive";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import {useLoginMutation} from "../../services/authApi";
+import toast from "react-hot-toast";
 
 const Container = styled.div`
     width: 100vw;
@@ -60,17 +61,20 @@ const Text = styled.p`
 const Login = () => {
     const [login, {isLoading, isError, error, isSuccess}] = useLoginMutation();
     const location = useLocation();
-    const _email = location.state.email ?? null;
+    const _email = location.state?.email ? location.state.email : "";
     const [email, setEmail] = useState(_email);
     const [password,setPassword] = useState("");
     
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         try{
-            await Login({email, password}).unwrap();
+            await login({email, password}).unwrap();
         }catch(err){
             console.log(err);
         }
     }
+    !isSuccess && isError && toast(error?.data?.message);
+    isSuccess && toast('Login successfull.');
     return (
         <Container>
             <Wrapper>
@@ -88,7 +92,7 @@ const Login = () => {
                         <Label>Password</Label>
                         <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
                     </InputContainer>
-                    <Button>Log In</Button>
+                    <Button type="sumbit" disabled={isLoading}>{isLoading ? 'Loading' : 'Log In'}</Button>
                     <Text><Link to="/forgot-password">Forgot your password</Link></Text>
                     <Text>New member? <Link to="/register">Create an account</Link></Text>
                 </Form>
