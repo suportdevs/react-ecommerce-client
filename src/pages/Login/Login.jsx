@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {useLoginMutation} from "../../services/authApi";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { currentUser } from "../../services/userSlice";
 
 const Container = styled.div`
     width: 100vw;
@@ -59,7 +61,8 @@ const Text = styled.p`
 `;
 
 const Login = () => {
-    const [login, {isLoading, isError, error, isSuccess}] = useLoginMutation();
+    const dispatch = useDispatch();
+    const [login, {isLoading, isError, error, isSuccess, data}] = useLoginMutation();
     const location = useLocation();
     const _email = location.state?.email ? location.state.email : "";
     const [email, setEmail] = useState(_email);
@@ -75,6 +78,16 @@ const Login = () => {
     }
     !isSuccess && isError && toast(error?.data?.message);
     isSuccess && toast('Login successfull.');
+    useEffect(() => {
+        if(isSuccess){
+            const {message, ..._user} = data;
+            dispatch(currentUser(_user))
+        }
+    }, [isSuccess, data, dispatch]);
+
+    const user =  useSelector(state => state.user);
+    if(user) return <Navigate to="/" />;
+
     return (
         <Container>
             <Wrapper>

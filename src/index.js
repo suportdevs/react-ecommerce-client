@@ -11,7 +11,8 @@ import Register from './pages/Register/Register';
 import Cart from './pages/Cart/Cart';
 import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess";
 import { Provider } from 'react-redux';
-import { store } from './services/store';
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './services/store';
 import { Toaster } from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -49,7 +50,9 @@ const router = createBrowserRouter([
 
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
     <Toaster />
   </Provider>
 );

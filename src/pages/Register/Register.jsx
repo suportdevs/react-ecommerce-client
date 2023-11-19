@@ -3,7 +3,8 @@ import { mobile } from "../../responsive";
 import { useState } from "react";
 import { useRegisterMutation } from "../../services/authApi";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
     width: 100vw;
@@ -84,6 +85,9 @@ const Register = () => {
     isSuccess && toast('User registration successfull.');
     isSuccess && navigate('/login', {state: email});
 
+    const user =  useSelector(state => state.user);
+    if(user) return <Navigate to="/" />;
+    
     return (
         <Container>
             <Wrapper>
