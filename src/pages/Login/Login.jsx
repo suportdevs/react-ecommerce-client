@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {useLoginMutation} from "../../services/authApi";
 import toast from "react-hot-toast";
@@ -61,6 +61,7 @@ const Text = styled.p`
 `;
 
 const Login = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [login, {isLoading, isError, error, isSuccess, data}] = useLoginMutation();
     const location = useLocation();
@@ -86,7 +87,8 @@ const Login = () => {
     }, [isSuccess, data, dispatch]);
 
     const user =  useSelector(state => state.user);
-    if(user) return <Navigate to="/" />;
+    console.log(user.user);
+    if(user.user) return <navigate to="/" />;
 
     return (
         <Container>
