@@ -38,7 +38,9 @@ const MenuItem = styled.div`
     ${mobile({marginLeft: "5px", fontSize: "16px"})}
 `;
 const Navbar = () => {
+    const user = useSelector(state => state.user.user);
     const quantity = useSelector(state => state.cart.quantity);
+    
     return (
         <Container>
             <Wrapper>
@@ -49,16 +51,20 @@ const Navbar = () => {
                 </Left>
                 {/* <Center>Center</Center> */}
                 <Right>
-                    <Link to="/register">
-                        <MenuItem>
-                            Register
-                        </MenuItem>
-                    </Link>
-                    <Link to="login">
-                        <MenuItem>
-                            Login
-                        </MenuItem>
-                    </Link>
+                    {
+                        !user && <>
+                            <Link to="/register">
+                                <MenuItem>
+                                    Register
+                                </MenuItem>
+                            </Link>
+                            <Link to="/login">
+                                <MenuItem>
+                                    Login
+                                </MenuItem>
+                            </Link>
+                        </>
+                    }
                     <MenuItem>
                         <SearchOutlined />
                     </MenuItem>

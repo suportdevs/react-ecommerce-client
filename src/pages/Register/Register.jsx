@@ -81,11 +81,11 @@ const Register = () => {
             console.log(err);
         }
     }
-    !isSuccess && isError && toast(error?.data?.message);
-    isSuccess && toast('User registration successfull.');
+    !isSuccess && isError && toast.error(error?.data?.message);
+    isSuccess && toast.success('User registration successfull.');
     isSuccess && navigate('/login', {state: email});
 
-    const user =  useSelector(state => state.user);
+    const user =  useSelector(state => state.user.user);
     if(user) return <Navigate to="/" />;
     
     return (

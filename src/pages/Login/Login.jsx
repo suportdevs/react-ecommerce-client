@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {useLoginMutation} from "../../services/authApi";
 import toast from "react-hot-toast";
@@ -61,7 +61,6 @@ const Text = styled.p`
 `;
 
 const Login = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [login, {isLoading, isError, error, isSuccess, data}] = useLoginMutation();
     const location = useLocation();
@@ -77,8 +76,8 @@ const Login = () => {
             console.log(err);
         }
     }
-    !isSuccess && isError && toast(error?.data?.message);
-    isSuccess && toast('Login successfull.');
+    !isSuccess && isError && toast.error(error?.data?.message);
+    isSuccess && toast.success('Login successfull.');
     useEffect(() => {
         if(isSuccess){
             const {message, ..._user} = data;
@@ -86,9 +85,8 @@ const Login = () => {
         }
     }, [isSuccess, data, dispatch]);
 
-    const user =  useSelector(state => state.user);
-    console.log(user.user);
-    if(user.user) return <navigate to="/" />;
+    const user =  useSelector(state => state.user.user);
+    if(user) return <Navigate to="/" />;
 
     return (
         <Container>
@@ -97,12 +95,8 @@ const Login = () => {
                 <Form onSubmit={handleLogin}>
                     <InputContainer>
                         <Label>Email</Label>
-                        <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Username" />
+                        <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
                     </InputContainer>
-                    {/* <InputContainer>
-                        <Label>Email</Label>
-                        <Input type="text" placeholder="Email" />
-                    </InputContainer> */}
                     <InputContainer>
                         <Label>Password</Label>
                         <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
