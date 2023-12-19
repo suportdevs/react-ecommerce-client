@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './services/store';
 import { Toaster } from 'react-hot-toast';
+import Dashboard from './pages/Admin/Dashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/admin/dashboard',
+    element: <Dashboard />,
   }
 ]);
 

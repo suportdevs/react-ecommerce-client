@@ -1,0 +1,56 @@
+.widgetSm{
+    flex: 1;
+    box-shadow: 0px 2px 10px gainsboro;
+    padding: 20px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+.widgetSmTitle{
+    color: #525252;
+}
+.widgetSmList{
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+.widgetSmListItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.widgetSmImg{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.widgetSmUserText{
+    display: flex;
+    flex-direction: column;
+}
+.widgetSmUserName{
+    font-weight: 600;
+}
+.widgetSmUserTitle{
+    font-weight: 300;
+    color: #525252;
+}
+.widgetSmButton{
+    display: flex;
+    align-items: center;
+}
+.widgetSmBtn{
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 7px;
+    background-color: aliceblue;
+    color: #525252;
+    cursor: pointer;
+}
+.widgetSmBtnIcon{
+    font-size: 15px;
+    margin-right: 5px;
+}

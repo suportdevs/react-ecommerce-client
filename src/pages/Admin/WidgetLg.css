@@ -1,0 +1,52 @@
+.widgetLg{
+    flex: 2;
+    box-shadow: 0px 2px 10px gainsboro;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.widgetLgTitle{
+    color: #525252;
+}
+.widgetLgTable{
+    width: 100%;
+    border-spacing: 20px;
+}
+.widgetLgTh{
+    text-align: left;
+}
+.widgetLgCustomer{
+    display: flex;
+    align-items: center;
+}
+.widgetLgImg{
+    width: 40px;
+    height: 40;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.widgetLgTdTitle{
+    font-weight: 600;
+}
+.widgetLgTdGray{
+    color: #525252;
+}
+.btn{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 7px;
+    cursor: pointer;
+}
+.btn.Approved{
+    color: green;
+    background-color: lightgreen;
+}
+.btn.Declined{
+    color: tomato;
+    background-color: lightpink;
+}
+.btn.Pending{
+    color: blue;
+    background-color: lightblue;
+}

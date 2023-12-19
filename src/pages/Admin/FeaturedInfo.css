@@ -1,0 +1,49 @@
+
+
+.featuredInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.featuredInfoItem {
+    background: #fff;
+    margin: 0 20px;
+    padding: 30px;
+    box-shadow: 0px 2px 10px gainsboro;
+    border-radius: 5px;
+    flex: 1;
+    color: #585858;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+h2.featuredInfoTitle {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.featuredInfoMoney {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: #000;
+}
+
+span.featuredInfoText {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.featuredIcon {
+    font-size: 15px !important;
+    color: #2ec924;
+    margin-left: 5px;
+}
+
+.featuredIcon.negative {
+    color: red;
+}
