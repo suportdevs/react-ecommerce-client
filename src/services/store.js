@@ -15,6 +15,8 @@ import {
     REGISTER,
   } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
+import { userApi } from "./userApi";
+import { orderApi } from "./orderApi";
 
   const persistConfig = {
     key: 'root',
@@ -25,6 +27,7 @@ import storage from 'redux-persist/lib/storage'
         [productApi.reducerPath]: productApi.reducer,
         [cartApi.reducerPath]: cartApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
+        [userApi.reducerPath]: userApi.reducer,
         cart: cartSlice, 
         user: userSlice
     });
@@ -37,7 +40,7 @@ export const store = configureStore({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(productApi.middleware).concat(cartApi.middleware).concat(authApi.middleware),
+      }).concat(productApi.middleware).concat(cartApi.middleware).concat(authApi.middleware).concat(userApi.middleware).concat(orderApi.middleware),
 });
 
 // setupListeners(store.dispatch);
