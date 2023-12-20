@@ -1,9 +1,12 @@
+import { useGetOrdersQuery } from "../../services/orderApi";
 import "./WidgetLg.css";
 
 export default function WidgetLg(){
+    const {data: orders, isLoading} = useGetOrdersQuery();
     const Button = ({type}) => {
         return <button className={"btn " + type}>{type}</button>
     }
+    console.log(isLoading);
     return (
         <div className="widgetLg">
             <h3 className="widgetLgTitle">Latest Transactions</h3>
@@ -15,51 +18,26 @@ export default function WidgetLg(){
                         <th className="widgetLgTh">Amout</th>
                         <th className="widgetLgTh">Status</th>
                     </tr>
-                    <tr>
-                        <td className="widgetLgTd widgetLgCustomer">
-                            <img src="https://images.pexels.com/photos/821651/pexels-photo-821651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" className="widgetLgImg"/>
-                            <span className="widgetLgTdTitle">Sunsan Carol</span>
-                        </td>
-                        <td className="widgetLgTd widgetLgTdGray">
-                            2 may 2023
-                        </td>
-                        <td className="widgetLgTd widgetLgTdGray">
-                            $200
-                        </td>
-                        <td className="widgetLgTd">
-                        <Button type="Approved" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="widgetLgTd widgetLgCustomer">
-                            <img src="https://images.pexels.com/photos/821651/pexels-photo-821651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" className="widgetLgImg"/>
-                            <span className="widgetLgTdTitle">Sunsan Carol</span>
-                        </td>
-                        <td className="widgetLgTd widgetLgTdGray">
-                            2 may 2023
-                        </td>
-                        <td className="widgetLgTd widgetLgTdGray">
-                            $200
-                        </td>
-                        <td className="widgetLgTd">
-                        <Button type="Declined" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="widgetLgTd widgetLgCustomer">
-                            <img src="https://images.pexels.com/photos/821651/pexels-photo-821651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" className="widgetLgImg"/>
-                            <span className="widgetLgTdTitle">Sunsan Carol</span>
-                        </td>
-                        <td className="widgetLgTd widgetLgTdGray">
-                            2 may 2023
-                        </td>
-                        <td className="widgetLgTd widgetLgTdGray">
-                            $200
-                        </td>
-                        <td className="widgetLgTd">
-                        <Button type="Pending" />
-                        </td>
-                    </tr>
+                    {
+                        (isLoading) && <tr>
+                                <th>Loading...</th>
+                            </tr>
+                    }
+                    {
+                        orders && orders.map((order) => (
+                            <tr>
+                                <td className="widgetLgTd widgetLgCustomer">
+                                    <img src="https://images.pexels.com/photos/821651/pexels-photo-821651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" className="widgetLgImg"/>
+                                    <span className="widgetLgTdTitle">{order.userId}</span>
+                                </td>
+                                <td className="widgetLgTd widgetLgTdGray">{order.createdAt}</td>
+                                <td className="widgetLgTd widgetLgTdGray">{order.amount}</td>
+                                <td className="widgetLgTd">
+                                <Button type={order.status} />
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </table>
             </div>
         </div>

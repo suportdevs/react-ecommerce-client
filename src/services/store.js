@@ -28,6 +28,7 @@ import { orderApi } from "./orderApi";
         [cartApi.reducerPath]: cartApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
         [userApi.reducerPath]: userApi.reducer,
+        [orderApi.reducerPath]: orderApi.reducer,
         cart: cartSlice, 
         user: userSlice
     });
