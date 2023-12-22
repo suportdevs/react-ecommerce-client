@@ -16,7 +16,10 @@ export const orderApi = createApi({
         getOrders: builder.query({
             query: () => '/orders',
         }),
+        getIncome: builder.query({
+            query: () => '/orders/income',
+        }),
     }),
 });
 
-export const {useGetOrdersQuery} = orderApi;
+export const {useGetOrdersQuery, useGetIncomeQuery} = orderApi;
