@@ -16,8 +16,11 @@ export const userApi = createApi({
     endpoints: (builder) => ({
         getUsers: builder.query({
             query: (_new) => _new ? `/users?new=true` : '/users',
-        })
+        }),
+        getUserStats: builder.query({
+            query: () => '/users/stats',
+        }),
     }),
 });
 
-export const {useGetUsersQuery} = userApi;
+export const {useGetUsersQuery, useGetUserStatsQuery} = userApi;

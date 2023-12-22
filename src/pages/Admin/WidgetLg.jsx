@@ -6,7 +6,6 @@ export default function WidgetLg(){
     const Button = ({type}) => {
         return <button className={"btn " + type}>{type}</button>
     }
-    console.log(isLoading);
     return (
         <div className="widgetLg">
             <h3 className="widgetLgTitle">Latest Transactions</h3>
@@ -25,7 +24,7 @@ export default function WidgetLg(){
                     }
                     {
                         orders && orders.map((order) => (
-                            <tr>
+                            <tr key={order._id}>
                                 <td className="widgetLgTd widgetLgCustomer">
                                     <img src="https://images.pexels.com/photos/821651/pexels-photo-821651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" className="widgetLgImg"/>
                                     <span className="widgetLgTdTitle">{order.userId}</span>
