@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
     "@mui/styled-engine": "^5.14.13",
+    "@mui/x-data-grid": "^6.18.5",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

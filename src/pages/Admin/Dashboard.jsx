@@ -7,7 +7,7 @@ import { useGetUserStatsQuery } from "../../services/userApi";
 import { useEffect, useMemo, useState } from "react";
 
 const Dashboard = () => {
-    const {data: stats, isLoading, isSuccess} = useGetUserStatsQuery();
+    const {data: stats, isSuccess} = useGetUserStatsQuery();
     const [userStats, setUserStats] = useState([]);
     const MONTHS = useMemo(() => [
         'Jan',
@@ -31,8 +31,8 @@ const Dashboard = () => {
             {name: MONTHS[item._id - 1], "Active User": item.total},
         ])
         )
-    }, [MONTHS]);
-    
+    }, [MONTHS, isSuccess]);
+
     return (
         <div className="home">
             <FeaturedInfo />

@@ -1,0 +1,48 @@
+.productList{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px gainsboro;
+    -webkit-box-shadow: 0px 0px 10px gainsboro;
+    margin: 20px;
+
+}
+.productListTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.productListTitle{
+    color: #525252;
+}
+.productListCreateBtn {
+    border: none;
+    padding: 7px 10px;
+    border-radius: 5px;
+    background: darkcyan;
+    color: #fff;
+    cursor: pointer;
+}
+.productListProduct {
+    display: flex;
+    align-items: center;
+}
+
+.productListProductImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.productListIcon{
+    font-size: 20px;
+    cursor: pointer;
+}
+.productListIcon.edit{
+    color: green;
+}
+.productListIcon.delete{
+    color: tomato;
+}

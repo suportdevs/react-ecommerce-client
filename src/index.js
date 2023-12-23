@@ -16,6 +16,7 @@ import { store, persistor } from './services/store';
 import { Toaster } from 'react-hot-toast';
 import Dashboard from './pages/Admin/Dashboard';
 import Layout from './pages/Admin/Layouts/Layout';
+import AdminProductList from './pages/Admin/AdminProductList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/dashboard',
         element: <Dashboard />,
+      },
+      {
+        path: '/admin/products',
+        element: <AdminProductList />,
       },
     ]
   }

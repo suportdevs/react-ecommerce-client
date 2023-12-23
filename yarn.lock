@@ -1770,7 +1770,7 @@
   dependencies:
     "@babel/runtime" "^7.23.2"
 
-"@mui/material@^5.0.0", "@mui/material@^5.14.13":
+"@mui/material@^5.0.0", "@mui/material@^5.14.13", "@mui/material@^5.4.1":
   version "5.14.17"
   resolved "https://registry.npmjs.org/@mui/material/-/material-5.14.17.tgz"
   integrity sha512-+y0VeOLWfEA4Z98We/UH6KCo8+f2HLZDK45FY+sJf8kSojLy3VntadKtC/u0itqnXXb1Pr4wKB2tSIBW02zY4Q==
@@ -1807,7 +1807,7 @@
     csstype "^3.1.2"
     prop-types "^15.8.1"
 
-"@mui/system@^5.14.17":
+"@mui/system@^5.14.17", "@mui/system@^5.4.1":
   version "5.14.17"
   resolved "https://registry.npmjs.org/@mui/system/-/system-5.14.17.tgz"
   integrity sha512-Ccz3XlbCqka6DnbHfpL3o3TfOeWQPR+ewvNAgm8gnS9M0yVMmzzmY6z0w/C1eebb+7ZP7IoLUj9vojg/GBaTPg==
@@ -1826,7 +1826,7 @@
   resolved "https://registry.npmjs.org/@mui/types/-/types-7.2.8.tgz"
   integrity sha512-9u0ji+xspl96WPqvrYJF/iO+1tQ1L5GTaDOeG3vCR893yy7VcWwRNiVMmPdPNpMDqx0WV1wtEW9OMwK9acWJzQ==
 
-"@mui/utils@^5.14.17":
+"@mui/utils@^5.14.16", "@mui/utils@^5.14.17":
   version "5.14.17"
   resolved "https://registry.npmjs.org/@mui/utils/-/utils-5.14.17.tgz"
   integrity sha512-yxnWgSS4J6DMFPw2Dof85yBkG02VTbEiqsikymMsnZnXDurtVGTIhlNuV24GTmFTuJMzEyTTU9UF+O7zaL8LEQ==
@@ -1835,6 +1835,17 @@
     "@types/prop-types" "^15.7.9"
     prop-types "^15.8.1"
     react-is "^18.2.0"
+
+"@mui/x-data-grid@^6.18.5":
+  version "6.18.5"
+  resolved "https://registry.npmjs.org/@mui/x-data-grid/-/x-data-grid-6.18.5.tgz"
+  integrity sha512-EEVJfQGXNmfLMVgj30ZpUSwx9Q8CZ/qGAYzLoARpLFOvrkGtbG8q5t4/WClkQ8MoDi7kO7TWOQ0AZz1C9/sh5g==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+    "@mui/utils" "^5.14.16"
+    clsx "^2.0.0"
+    prop-types "^15.8.1"
+    reselect "^4.1.8"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
