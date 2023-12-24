@@ -48,7 +48,7 @@ export default function AdminProductList(){
     { field: 'actions', headerName: 'Actions', width: 130, renderCell: (params) => {
         return (
             <div className="productTableAction">
-                <Link to={"product/edit/" + params.row._id}>
+                <Link to={"/admin/products/edit/" + params.row._id}>
                 <EditNote className="productListIcon edit" />
                 </Link>
                 <DeleteOutline className="productListIcon delete" onClick={() => handleProductDelete(params.row._id)} />

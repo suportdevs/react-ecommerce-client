@@ -3,7 +3,7 @@ import "./FeaturedInfo.css";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 
 export default function FeaturedInfo(){
-    const {data: incomes, isLoading, isSuccess} = useGetIncomeQuery();
+    const {data: incomes, isLoading, isSuccess} = useGetIncomeQuery("");
     
     const incomePercent = (isSuccess && incomes) ? (((incomes[1]?.total ?? 0) * 100) / ((incomes[0]?.total ?? 0) - 100)) : 0;
     return (

@@ -17,7 +17,7 @@ export const orderApi = createApi({
             query: () => '/orders',
         }),
         getIncome: builder.query({
-            query: () => '/orders/income',
+            query: (productId) => productId ? `/orders/income?pid=${productId}` : '/orders/income',
         }),
     }),
 });
