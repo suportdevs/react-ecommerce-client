@@ -10,7 +10,7 @@ export default function WidgetSm(){
             <ul className="widgetSmList">
                 {
                     (isLoading) ? 'Loading...' : (
-                        users.map((user) => (
+                        users?.map((user) => (
                         <li className="widgetSmListItem" key={user._id}>
                             <img src="https://images.pexels.com/photos/943235/pexels-photo-943235.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" className="widgetSmImg" />
                             <div className="widgetSmUserText">
