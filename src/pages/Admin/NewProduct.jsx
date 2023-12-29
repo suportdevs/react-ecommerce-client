@@ -3,6 +3,7 @@ import "./NewProduct.css";
 import { useState } from "react";
 import makeAnimated from 'react-select/animated';
 import {categories, sizes, colors} from "../../data";
+import { useStoreProductMutation } from "../../services/productApi";
 
 const categoryOptions  = categories.map(item => {
     return { value: item.name || '', label: item.title || '' };
@@ -24,6 +25,7 @@ export default function NewProduct(){
     const [color, setColor] = useState([]);
     const [file, setFile] = useState(null);
     const [inputs, setInputs] = useState({});
+    const [storeProduct, {isLoading, isSuccess, isError, error}] = useStoreProductMutation();
     const handleSelectCategoryChange = (cat) => {
         setCategory(cat);
     }
@@ -39,6 +41,11 @@ export default function NewProduct(){
         })
     };
     
+    const handleProductSubmit = async () => {
+        await storeProduct({...inputs, image: file, categories: category, sizes: size, colors: color}).unwrap();
+    }
+    console.log('s' +isSuccess);
+    console.log('e=' + error);
 
     return (
         <div className="newProduct">
@@ -101,7 +108,7 @@ export default function NewProduct(){
                     <input className="newProductItemInput" type="number" name="rate" placeholder="Rate" step='any' onChange={handleInputs} />
                 </div>
                 <div className="newProductItem">
-                    <button className="newProductItemBtn">Update</button>
+                    <button onClick={handleProductSubmit} className="newProductItemBtn" disabled={isLoading}>{isLoading ? 'Loading...' : 'Save'}</button>
                 </div>
             </form>
         </div>

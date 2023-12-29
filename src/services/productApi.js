@@ -13,6 +13,13 @@ export const productApi = createApi({
         }
     }),
     endpoints: (builder) => ({
+        storeProduct: builder.mutation({
+            query: (data) => ({
+                url: '/products',
+                method: 'POST',
+                body: data,
+            }),
+        }),
         getProducts: builder.query({
             query: (category) => category ? `/products?category=${category}` : '/products',
         }),
@@ -28,4 +35,4 @@ export const productApi = createApi({
     }),
 });
 
-export const {useGetProductsQuery, useFindProductQuery, useDeleteProductByIdMutation} = productApi;
+export const {useStoreProductMutation, useGetProductsQuery, useFindProductQuery, useDeleteProductByIdMutation} = productApi;
