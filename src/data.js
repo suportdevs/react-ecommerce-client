@@ -90,4 +90,22 @@ export const sliderItems = [
       img:"https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
       category: "Mens",
     },
+  ];
+
+  export const sizes = [
+    {name: "S"},
+    {name: "M"},
+    {name: "L"},
+    {name: "X"},
+    {name: "XL"},
+    {name: "XXL"},
+  ];
+
+  export const colors = [
+    {name: "Red", label: "Red", color: 'red'},
+    {name: "Green", label: "Green", color: 'green'},
+    {name: "Yellow", label: "Yellow", color: 'yellow'},
+    {name: "Pink", label: "Pink", color: 'pink'},
+    {name: "Magenda", label: "Magenda", color: 'magenda'},
+    {name: "Black", label: "Black", color: 'black'},
   ]
