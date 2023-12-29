@@ -60,7 +60,7 @@ export default function AdminProductList(){
         <div className="productList">
             <div className="productListTop">
             <h3 className="productListTitle">Product List</h3>
-            <Link to="/newProduct">
+            <Link to="/admin/products/create">
             <button className="productListCreateBtn">Create</button>
             </Link>
             </div>

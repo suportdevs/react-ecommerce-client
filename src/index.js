@@ -18,6 +18,7 @@ import Dashboard from './pages/Admin/Dashboard';
 import Layout from './pages/Admin/Layouts/Layout';
 import AdminProductList from './pages/Admin/AdminProductList';
 import AdminProduct from './pages/Admin/AdminProduct';
+import NewProduct from './pages/Admin/NewProduct';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/products',
         element: <AdminProductList />,
+      },
+      {
+        path: '/admin/products/create',
+        element: <NewProduct />,
       },
       {
         path: '/admin/products/edit/:id',

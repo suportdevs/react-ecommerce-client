@@ -50,7 +50,7 @@ const Products = ({category, filters, sort}) => {
           );
         }
       }, [sort]);
-console.log(filteredProducts);
+
     return (
         <Container>
         <Title>Hot Deal</Title>
